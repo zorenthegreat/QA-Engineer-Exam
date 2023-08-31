@@ -7,7 +7,7 @@
                         <input v-model="keyword" @keypress.enter="search" class="form-control col-12 col-md-6" type="text" placeholder="Search Product..." />
                         <select v-model="category" class="form-control col-12 col-md-3 mx-md-1 my-1 my-md-0">
                             <option value>&mdash;</option>
-                            <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.text }}</option>
+                            <option v-for="(category, key) in categories" :key="key" :value="key">{{ category }}</option>
                         </select>
                         <div class="text-right text-md-left">
                             <a class="btn btn-secondary btn-circle" @click="search">
@@ -49,33 +49,12 @@
 
 <script>
     export default {
-        props: ['token'],
+        props: ['token', 'categoryEnum'],
         data() {
             return {
                 keyword: '',
                 category: '',
-                categories: [
-                    {
-                        id: 1,
-                        text: 'Electonics'
-                    },
-                    {
-                        id: 2,
-                        text: 'Clothing'
-                    },
-                    {
-                        id: 3,
-                        text: 'Home & Furnitures'
-                    },
-                    {
-                        id: 4,
-                        text: 'Beauty & Personal Care'
-                    },
-                    {
-                        id: 5,
-                        text: 'Sports & Outdoors'
-                    }
-                ],
+                categories: [],
                 products: [],
                 page: {
                     previous: 1,
@@ -86,7 +65,7 @@
         },
         created() {
             this.fetchProducts()
-            this.fetchCategories()
+            this.processCategories()
         },
         mounted () {
             console.log('Component mounted.')
@@ -105,8 +84,15 @@
                     this.products = response.data.data
                 })
             },
-            fetchCategories () {
+            processCategories () {
+                let items = {}
 
+                Object.entries(this.categoryEnum).forEach(([key, category]) => {
+
+                    items[key] = category
+                })
+
+                this.categories = items
             },
             search () {
                 this.products = []

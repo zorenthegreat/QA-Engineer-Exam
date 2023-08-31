@@ -21,8 +21,10 @@ class ProductController extends Controller
         $query = Product::when($request->category, function ($query) use ($request) {
             return $query->where('category', $request->category);
         })->when($request->keyword, function ($query) use ($request) {
-            return $query->where('name', 'LIKE', "%$request->keyword%")
-                ->orWhere('description', 'LIKE', "%$request->keyword%");
+            return $query->where(function ($q) use ($request) {
+                $q->where('name', 'LIKE', "%$request->keyword%")
+                    ->orWhere('description', 'LIKE', "%$request->keyword%");
+            });
         });
 
         $products = $query->paginate(5); // pagination

@@ -19,7 +19,7 @@
     <div class="container-fluid">
         <div class="row">
             <div id="app" class="col">
-                <product-list-component :token="{{ json_encode($token) }}" />
+                <product-list-component :token="{{ $token }}" :category-enum="{{ $categories }}" />
             </div>
         </div>
     </div>

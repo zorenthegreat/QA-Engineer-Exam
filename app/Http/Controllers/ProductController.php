@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProductCategory;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -11,9 +12,10 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $token = $request->cookie('access_token');
-
-        return view('product.index', compact('token'));
+        return view('product.index')->with([
+            'token' => json_encode($request->cookie('access_token')),
+            'categories' => json_encode(ProductCategory::getOptions())
+        ]);
     }
 
     /**

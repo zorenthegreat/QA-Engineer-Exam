@@ -10,6 +10,9 @@ enum ProductCategory : int
     case BEAUTY_PERSONAL_CARE = 4;
     case SPORT_OUTDOOR = 5;
 
+    /**
+     * Shows the proper label after casting
+     */
     public function label() : string
     {
         return match($this)
@@ -22,18 +25,18 @@ enum ProductCategory : int
         };
     }
 
-    public static function search(string $type) : array
-    {
-        $matches = [];
+    /**
+     * Populate select options for categories
+     * 
+     * @return array
+     */
+    static function getOptions() {
+        $items = [];
 
         foreach (self::cases() as $case) {
-            $name = (new self($case))->name();
-
-            if (str_contains(strtolower($name), strtolower($type))) {
-                $matches[] = $value;
-            }
+            $items[$case->value] = $case->label();
         }
 
-        return $matches;
+        return $items;
     }
 }
