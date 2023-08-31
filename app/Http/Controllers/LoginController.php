@@ -25,12 +25,14 @@ class LoginController extends AuthenticatedSessionController
      */
     public function login(LoginRequest $request)
     {
+        $cookie = null;
         $response = parent::store($request);
 
         if (auth()->check()) {
-            auth()->user()->createToken('acces-token')->plainTextToken;
+            $token = auth()->user()->createToken('acces-token')->plainTextToken;
+            $cookie = cookie('access_token', $token, 60);
         }
 
-        return $response;
+        return $response->withCookie($cookie);
     }
 }
