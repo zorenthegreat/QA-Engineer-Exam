@@ -17,6 +17,16 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        return ProductResource::collection(Product::paginate());
+        // filters
+        $products = Product::when($request->category, function ($query) use ($request) {
+            return $query->where('category', $request->category);
+        })->when($request->keyword, function ($query) use ($request) {
+            return $query->where('name', 'LIKE', "%$request->keyword%")
+                ->orWhere('description', 'LIKE', "%$request->keyword%");
+        });
+
+        $products->paginate(5); // pagination
+
+        return ProductResource::collection($products);
     }
 }
