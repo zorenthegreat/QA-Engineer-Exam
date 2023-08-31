@@ -30,7 +30,7 @@
                                 <td>{{ product.category }}</td>
                                 <td>{{ product.description }}</td>
                                 <td>
-                                    <a href="" class="btn btn-dark">
+                                    <a :href="editUrl(product)" class="btn btn-dark">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 </td>
@@ -99,6 +99,9 @@
                 })
 
                 this.categories = items
+            },
+            editUrl (product) {
+                return route('product.edit', product)
             },
             search () {
                 this.fetchProducts(this.page.current)

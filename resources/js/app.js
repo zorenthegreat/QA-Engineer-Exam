@@ -1,4 +1,5 @@
 import './bootstrap';
+import './ziggy';
 
 import { createApp } from 'vue/dist/vue.esm-bundler'
 

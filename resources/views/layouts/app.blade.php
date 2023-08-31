@@ -21,12 +21,13 @@
         @endguest
 
         @auth
-        <div class="wrapper">
-            @include('layouts.sidebar')
-            <div class="content-wrapper">
-                @yield('content')
+            <div class="wrapper">
+                @include('layouts.sidebar')
+                <div class="content-wrapper">
+                    @yield('content')
+                </div>
             </div>
-        </div>
+            @routes
         @endauth
     </body>
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>

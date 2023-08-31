@@ -10,7 +10,7 @@
                 <h1 class="m-0 text-dark">Products</h1>
             </div>
             <div class="col-6">
-                <a href="#" class="btn btn-primary btn-round float-right">Create</a>
+                <a href="{{ route('product.create') }}" class="btn btn-primary btn-round float-right">Create</a>
             </div>
         </div>
     </div>

@@ -23,7 +23,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        dd('create');
     }
 
     /**
@@ -39,7 +39,6 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
     }
 
     /**
@@ -47,7 +46,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        dd('edit');
     }
 
     /**
