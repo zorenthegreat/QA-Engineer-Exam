@@ -41,62 +41,73 @@
                         No Results
                     </div>
                 </div>
-                <div class="card-footer"></div>
+                <div class="card-footer">
+                    <pagination :current-page="page.current" :last-page="page.last" @changeCurrentPage="pageChangeHandle" />
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import Pagination from '../Pagination.vue'
+
     export default {
+        components: { Pagination },
         props: ['token', 'categoryEnum'],
-        data() {
+        data () {
             return {
                 keyword: '',
                 category: '',
                 categories: [],
                 products: [],
                 page: {
-                    previous: 1,
                     current: 1,
                     last: 1
-                },
+                }
             }
         },
-        created() {
-            this.fetchProducts()
+        created () {
+            this.fetchProducts(this.page.current)
             this.processCategories()
         },
-        mounted () {
-            console.log('Component mounted.')
-        },
         methods: {
-            fetchProducts () {
-                axios.get('/api/products', {
+            async fetchProducts (page) {
+                await axios.get('/api/products', {
                     headers: {
                         'Authorization': `Bearer ${this.token}`
                     },
                     params: {
                         keyword: this.keyword,
-                        category: this.category
+                        category: this.category,
+                        page: page
                     }
                 }).then(response => {
+                    this.products = []
                     this.products = response.data.data
+                    this.page.current = response.data.meta.current_page
+                    this.page.last = response.data.meta.last_page
+                }).catch(error => {
+                    console.error('Error fetching data:', error);
                 })
             },
             processCategories () {
                 let items = {}
 
                 Object.entries(this.categoryEnum).forEach(([key, category]) => {
-
                     items[key] = category
                 })
 
                 this.categories = items
             },
             search () {
-                this.products = []
-                this.fetchProducts()
+                this.fetchProducts(this.page.current)
+            },
+            async pageChangeHandle (value) {
+                if ((value != this.page.current && value != '...')) {
+                    this.page.current = value
+                    this.fetchProducts(value)
+                }
             }
         }
     }
