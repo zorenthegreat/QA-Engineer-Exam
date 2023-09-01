@@ -54,7 +54,7 @@
 
     export default {
         components: { Pagination },
-        props: ['token', 'categoryEnum'],
+        props: ['categoryEnum'],
         data () {
             return {
                 keyword: '',
@@ -74,9 +74,6 @@
         methods: {
             async fetchProducts (page) {
                 await axios.get('/api/products', {
-                    headers: {
-                        'Authorization': `Bearer ${this.token}`
-                    },
                     params: {
                         keyword: this.keyword,
                         category: this.category,

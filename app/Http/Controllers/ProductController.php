@@ -13,7 +13,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         return view('product.index')->with([
-            'token' => json_encode($request->cookie('access_token')),
+            'token' => $request->cookie('access_token'),
             'categories' => json_encode(ProductCategory::getOptions())
         ]);
     }

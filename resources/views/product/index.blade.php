@@ -2,12 +2,16 @@
     'bodyClass' => 'hold-transition sidebar-mini layout-fixed'
 ])
 
+@push('metas')
+<meta name="access-token" content="{{ $token }}">
+@endpush
+
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-6">
-                <h1 class="m-0 text-dark">Products</h1>
+                <h1 class="m-0 text-dark">Products {{ $token }}</h1>
             </div>
             <div class="col-6">
                 <a href="{{ route('product.create') }}" class="btn btn-primary btn-round float-right">Create</a>
@@ -19,7 +23,7 @@
     <div class="container-fluid">
         <div class="row">
             <div id="app" class="col">
-                <product-list-component :token="{{ $token }}" :category-enum="{{ $categories }}" />
+                <product-list-component :category-enum="{{ $categories }}" />
             </div>
         </div>
     </div>
