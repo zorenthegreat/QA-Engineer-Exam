@@ -85,6 +85,7 @@
                         page: page
                     }
                 }).then(response => {
+                    console.log(response)
                     this.products = []
                     this.products = response.data.data
                     this.page.current = response.data.meta.current_page
@@ -116,11 +117,21 @@
                 }
             },
             async deleteProduct (product) {
-                await axios.delete(route('api.product.delete', product)).then(() => {
-                    console.log('deleting...')
-                    this.fetchProducts(this.page.current)
-                }).catch(error => {
-                    console.error('Error fetching data:', error);
+                await this.$swal({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes'
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        axios.delete(route('api.product.delete', product)).then(response => {
+                            console.log(response)
+                            this.fetchProducts(this.page.current)
+                        }).catch(error => {
+                            console.error('Error fetching data:', error);
+                        })
+                    }
                 })
             }
         }

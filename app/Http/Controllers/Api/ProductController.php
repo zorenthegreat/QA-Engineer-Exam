@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
@@ -36,12 +37,22 @@ class ProductController extends Controller
      * Deletes a product
      * 
      * @param \App\Models\Product $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function delete(Product $product)
     {
-        $product->delete();
+        try {
+            $product->delete();
+        } catch (\Exception $e) {
+            Log::error($e);
 
-        return response()->noContent();
+            return response()->json([
+                'errors' => $e->getMessage()
+            ]);
+        }
+
+        return response()->json([
+            'success' => true
+        ]);
     }
 }
