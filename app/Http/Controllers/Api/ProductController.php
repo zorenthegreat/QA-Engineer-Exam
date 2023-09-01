@@ -31,4 +31,17 @@ class ProductController extends Controller
 
         return ProductResource::collection($products);
     }
+
+    /**
+     * Deletes a product
+     * 
+     * @param \App\Models\Product $product
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Product $product)
+    {
+        $product->delete();
+
+        return response()->noContent();
+    }
 }

@@ -29,10 +29,15 @@
                                 <td>{{ product.name }}</td>
                                 <td>{{ product.category }}</td>
                                 <td>{{ product.description }}</td>
-                                <td>
-                                    <a :href="editUrl(product)" class="btn btn-dark">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
+                                <td class="col-1">
+                                    <div class="row justify-content-between">
+                                        <a :href="editUrl(product)" class="btn btn-dark my-1">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-danger my-1" @click.prevent="deleteProduct(product)">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -73,7 +78,7 @@
         },
         methods: {
             async fetchProducts (page) {
-                await axios.get('/api/products', {
+                await axios.get(route('api.product.index'), {
                     params: {
                         keyword: this.keyword,
                         category: this.category,
@@ -100,7 +105,8 @@
             editUrl (product) {
                 return route('product.edit', product)
             },
-            search () {
+            async search () {
+                this.page.current = 1
                 this.fetchProducts(this.page.current)
             },
             async pageChangeHandle (value) {
@@ -108,6 +114,14 @@
                     this.page.current = value
                     this.fetchProducts(value)
                 }
+            },
+            async deleteProduct (product) {
+                await axios.delete(route('api.product.delete', product)).then(() => {
+                    console.log('deleting...')
+                    this.fetchProducts(this.page.current)
+                }).catch(error => {
+                    console.error('Error fetching data:', error);
+                })
             }
         }
     }
