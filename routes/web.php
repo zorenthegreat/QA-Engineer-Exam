@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::resource('product', ProductController::class);
+    Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
+        Route::get('/', [ProductController::class, 'index'])->name('index');
+        Route::get('form', [ProductController::class, 'form'])->name('form');
+    });
 
     Route::get('dashboard', function () {
         return view('dashboard');

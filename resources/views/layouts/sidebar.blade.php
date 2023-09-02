@@ -39,7 +39,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('product.create') }}" class="nav-link">
+                    <a href="{{ route('product.form') }}" class="nav-link">
                         <i class="nav-icon fas fa-file"></i>
                         <p>Create</p>
                     </a>

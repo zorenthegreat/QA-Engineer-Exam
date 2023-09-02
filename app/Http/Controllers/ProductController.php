@@ -21,9 +21,12 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function form(Request $request)
     {
-        dd('create');
+        return view('product.form')->with([
+            'token' => $request->cookie('access_token'),
+            'categories' => json_encode(ProductCategory::getOptions())
+        ]);
     }
 
     /**
@@ -39,14 +42,6 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        dd('edit');
     }
 
     /**

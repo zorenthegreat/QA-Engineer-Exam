@@ -104,7 +104,7 @@
                 this.categories = items
             },
             editUrl (product) {
-                return route('product.edit', product)
+                return route('product.form', product)
             },
             async search () {
                 this.page.current = 1

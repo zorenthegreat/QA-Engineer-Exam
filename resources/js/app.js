@@ -2,10 +2,12 @@ import './bootstrap';
 import './ziggy';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 import { createApp } from 'vue/dist/vue.esm-bundler'
 
 import ProductListComponent from './Components/Product/ListComponent.vue'
+import ProductFormComponent from './Components/Product/FormComponent.vue'
 
 const app = createApp({})
 
@@ -15,5 +17,5 @@ const options = {
 };
 
 app.component('ProductListComponent', ProductListComponent)
-app.use(VueSweetalert2, options)
-app.mount('#app')
+app.component('ProductFormComponent', ProductFormComponent)
+app.use(VueSweetalert2, options).use(CKEditor).mount('#app')
