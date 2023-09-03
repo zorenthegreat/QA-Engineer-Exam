@@ -38,7 +38,8 @@
                     description: '',
                     category: 0,
                     date_time: '',
-                    images: []
+                    images: [],
+                    deletedImages: []
                 }
             }
         },
@@ -51,7 +52,17 @@
             console.log('Parent Form Created')
 
             if (this.product) {
+                console.log(this.product)
                 this.form = this.product
+                this.form.images = []
+                this.form.deletedImages = []
+
+                this.product.media.forEach(image => {
+                    this.form.images.push({
+                        id: image.id,
+                        preview: image.original_url
+                    })
+                })
             }
         },
         methods: {
@@ -71,8 +82,13 @@
                 for (const key in this.form) {
                     if (key == 'images') {
                         this.form[key].forEach(image => {
-                            console.log(image)
-                            data.append('images[]', image.file, image.name)
+                            if (image.hasOwnProperty('file')) {
+                                data.append('images[]', image.file, image.name)
+                            }
+                        })
+                    } else if (key == 'deletedImages') {
+                        this.form[key].forEach(id => {
+                            data.append('deletedImages[]', id)
                         })
                     } else {
                         data.append(key, this.form[key])

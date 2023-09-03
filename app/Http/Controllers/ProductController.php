@@ -24,6 +24,10 @@ class ProductController extends Controller
      */
     public function form(Request $request, Product $product = null)
     {
+        if ($product) {
+            $product->load(['media']);
+        }
+
         return view('product.form', compact('product'))->with([
             'token' => $request->cookie('access_token'),
             'categories' => json_encode(ProductCategory::getOptions())

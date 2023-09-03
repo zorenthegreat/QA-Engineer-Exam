@@ -3,7 +3,7 @@
         <div class="row flex-column flex-md-row">
             <div class="col col-md-4 my-3" v-for="(image, key) in form.images" :key="key">
                 <div class="delete-button-container">
-                    <a href="javascript:void(0)" class="btn btn-danger delete-button" @click="remove(key)">
+                    <a href="javascript:void(0)" class="btn btn-danger delete-button" @click="remove(image, key)">
                         <i class="fas fa-close"></i>
                     </a>
                 </div>
@@ -25,6 +25,7 @@
             }
         },
         created () {
+            console.log('Second Form Created')
         },
         methods: {
             filesChanged () {
@@ -37,8 +38,12 @@
 
                 this.$refs.images.value = ''
             },
-            remove(index) {
-                this.form.images.splice(index, 1);
+            remove(image, key) {
+                if (image.hasOwnProperty('id')) {
+                    this.form.deletedImages.push(image.id)
+                }
+
+                this.form.images.splice(key, 1);
             },
         }
     }
