@@ -8,6 +8,7 @@
                 <div class="card-body">
                     <first-component :form="form" v-if="step == 1" :category-enum="categoryEnum" />
                     <second-component :form="form" v-if="step == 2" />
+                    <third-component :form="form" v-if="step == 3" />
                 </div>
                 <div class="card-footer">
                     <div class="row" :class="{ 'justify-content-end': isPageOne, 'justify-content-between': !isPageOne }">
@@ -24,9 +25,10 @@
 <script>
     import FirstComponent from './Form/FirstFormComponent.vue'
     import SecondComponent from './Form/SecondFormComponent.vue'
+    import ThirdComponent from './Form/ThirdFormComponent.vue'
 
     export default {
-        components: { FirstComponent, SecondComponent },
+        components: { FirstComponent, SecondComponent, ThirdComponent },
         props: ['product', 'categoryEnum'],
         data () {
             return {
@@ -35,6 +37,7 @@
                     name: '',
                     description: '',
                     category: 0,
+                    date_time: '',
                     images: ''
                 }
             }
@@ -59,6 +62,8 @@
                 this.step--
             },
             submit () {
+                this.form.date_time = new Date(this.form.date_time).toISOString()
+
                 const message = this.product ? 'Updated' : 'Saved'
                 const apiRoute = this.product ? route('api.products.update', this.product) : route('api.products.store')
                 const data = new FormData()

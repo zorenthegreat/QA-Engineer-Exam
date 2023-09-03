@@ -26,7 +26,8 @@ class UpdateRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:254'],
             'category' => ['required', Rule::in(array_keys(ProductCategory::getOptions()))],
-            'description' => ['required', 'string', 'max:1000']
+            'description' => ['required', 'string', 'max:1000'],
+            'date_time' => ['required', 'string', 'date']
         ];
     }
 }

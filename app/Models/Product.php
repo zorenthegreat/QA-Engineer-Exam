@@ -29,6 +29,6 @@ class Product extends Model
      */
     protected $casts = [
         'category' => ProductCategory::class,
-        'date_time' => 'datetime:m/d/Y'
+        'date_time' => 'datetime'
     ];
 }
