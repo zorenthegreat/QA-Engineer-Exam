@@ -8,7 +8,7 @@
             <div class="col-3">Category</div>
             <div class="col">
                 <select class="form-control" v-model="form.category">
-                    <option value>&mdash;</option>
+                    <option value="0">Select a Category</option>
                     <option v-for="(category, key) in categoryEnum" :key="key" :value="key">
                         {{ category }}
                     </option>

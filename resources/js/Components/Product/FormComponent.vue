@@ -59,8 +59,37 @@
                 this.step--
             },
             submit () {
-                axios.post(route('api.products.store')).then(response => {
-                    this.fetchProducts(this.page.current)
+                const message = this.product ? 'Updated' : 'Saved'
+                const apiRoute = this.product ? route('api.products.update', this.product) : route('api.products.store')
+                const data = new FormData()
+
+                for (const key in this.form) {
+                    data.append(key, this.form[key])
+                }
+
+                if (this.product) {
+                    data.append('_method', 'PUT')
+                }
+
+                axios({
+                    method: 'POST',
+                    url: apiRoute,
+                    data: data,
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(async response => {
+                    if (response.status == 200) {
+                        await this.$swal(
+                            `Successfully ${message}!`,
+                            'Press OK to redirect to products list',
+                            'success'
+                        ).then(result => {
+                            if (result.isConfirmed) {
+                                window.location.href = route('product.index')
+                            }
+                        })
+                    }
                 }).catch(error => {
                     console.error('Error fetching data:', error);
                 })

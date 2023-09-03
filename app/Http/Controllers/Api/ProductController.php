@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Product\StoreRequest;
+use App\Http\Requests\Api\Product\UpdateRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -28,7 +31,7 @@ class ProductController extends Controller
             });
         });
 
-        $products = $query->paginate(5); // pagination
+        $products = $query->orderBy('created_at', 'DESC')->paginate(5); // pagination
 
         return ProductResource::collection($products);
     }
@@ -36,17 +39,41 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        dd('store');
+        try {
+            $product = Product::create($request->validated());
+        } catch (\Exception $e) {
+            Log::error($e);
+
+            return response()->json([
+                'errors' => $e->getMessage()
+            ]);
+        }
+
+        return response()->json([
+            'success' => true
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, Product $product)
     {
-        dd('update');
+        try {
+            $product->update($request->validated());
+        } catch (\Exception $e) {
+            Log::error($e);
+
+            return response()->json([
+                'errors' => $e->getMessage()
+            ]);
+        }
+
+        return response()->json([
+            'success' => true
+        ]);
     }
 
     /**
@@ -55,7 +82,7 @@ class ProductController extends Controller
      * @param \App\Models\Product $product
      * @return \Illuminate\Http\JsonResponse
      */
-    public function delete(Product $product)
+    public function destroy(Product $product)
     {
         try {
             $product->delete();

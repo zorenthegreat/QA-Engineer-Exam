@@ -124,7 +124,7 @@
                     confirmButtonText: 'Yes'
                 }).then(result => {
                     if (result.isConfirmed) {
-                        axios.delete(route('api.products.delete', product)).then(response => {
+                        axios.delete(route('api.products.destroy', product)).then(response => {
                             this.fetchProducts(this.page.current)
                         }).catch(error => {
                             console.error('Error fetching data:', error);
