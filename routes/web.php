@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
 });
 
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
 Route::post('login', [LoginController::class, 'login'])->name('login.post');
 
 Route::get('/', function () {
