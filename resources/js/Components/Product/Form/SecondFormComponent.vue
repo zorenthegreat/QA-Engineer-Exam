@@ -12,6 +12,7 @@
             <div class="col col-md-4 my-auto text-center">
                 <input class="d-none" type="file" multiple ref="images" @change="filesChanged" />
                 <a href="javascript:void(0)" class="btn btn-light border col" @click="$refs.images.click()"><i class="fas fa-plus"></i></a>
+                <p class="col text-danger text-center" v-if="errors.images">{{ errors.images[0] }}</p>
             </div>
         </div>
     </div>
@@ -19,7 +20,7 @@
 
 <script>
     export default {
-        props: ['form'],
+        props: ['form', 'errors'],
         data () {
             return {
             }

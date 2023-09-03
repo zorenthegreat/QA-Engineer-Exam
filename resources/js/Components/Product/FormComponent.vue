@@ -6,9 +6,9 @@
                     Product Create
                 </div>
                 <div class="card-body">
-                    <first-component :form="form" v-if="step == 1" :category-enum="categoryEnum" />
-                    <second-component :form="form" v-if="step == 2" />
-                    <third-component :form="form" v-if="step == 3" />
+                    <first-component :form="form" :errors="errors" v-if="step == 1" :category-enum="categoryEnum" />
+                    <second-component :form="form" :errors="errors" v-if="step == 2" />
+                    <third-component :form="form" :errors="errors" v-if="step == 3" />
                 </div>
                 <div class="card-footer">
                     <div class="row" :class="{ 'justify-content-end': isPageOne, 'justify-content-between': !isPageOne }">
@@ -33,6 +33,11 @@
         data () {
             return {
                 step: 1,
+                formfields: {
+                    first: ['name', 'category', 'description'],
+                    second: ['images'],
+                    third: ['date_time']
+                },
                 form: {
                     name: '',
                     description: '',
@@ -40,7 +45,8 @@
                     date_time: '',
                     images: [],
                     deletedImages: []
-                }
+                },
+                errors: {}
             }
         },
         computed: {
@@ -52,7 +58,6 @@
             console.log('Parent Form Created')
 
             if (this.product) {
-                console.log(this.product)
                 this.form = this.product
                 this.form.images = []
                 this.form.deletedImages = []
@@ -66,6 +71,33 @@
             }
         },
         methods: {
+            redirectStep (fields) {
+                let isStepReset = false
+
+                this.formfields.first.forEach(field => {
+                    if (fields.includes(field)) {
+                        this.step = 1
+                        isStepReset = true
+                    }
+                })
+
+                if (!isStepReset) {
+                    this.formfields.second.forEach(field => {
+                        if (fields.includes(field)) {
+                            this.step = 2
+                            isStepReset = true
+                        }
+                    })
+                }
+
+                if (!isStepReset) {
+                    this.formFields.third.forEach(field => {
+                        if (fields.includes(field)) {
+                            this.step = 3
+                        }
+                    })
+                }
+            },
             next () {
                 this.step++
             },
@@ -119,7 +151,9 @@
                         })
                     }
                 }).catch(error => {
-                    console.error('Error fetching data:', error);
+                    this.errors = error.response.data.errors
+                    this.redirectStep(Object.getOwnPropertyNames(error.response.data.errors))
+                    console.error('Error fetching data:', error)
                 })
             }
         }

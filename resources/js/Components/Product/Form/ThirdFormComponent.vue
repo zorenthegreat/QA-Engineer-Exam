@@ -2,7 +2,10 @@
     <div>
         <div class="row py-1">
             <div class="col-3">Date and Time</div>
-            <div class="col"><date-picker v-model="form.date_time" :format="'yyyy-MM-dd HH:mm:ss'" /></div>
+            <div class="col">
+                <date-picker v-model="form.date_time" :format="'yyyy-MM-dd HH:mm:ss'" />
+                <p class="col text-danger text-center" v-if="errors.date_time">{{ errors.date_time[0] }}</p>
+            </div>
         </div>
     </div>
 </template>
@@ -13,7 +16,7 @@
 
     export default {
         components: { DatePicker },
-        props: ['form'],
+        props: ['form', 'errors'],
         data () {
             return {
             }
