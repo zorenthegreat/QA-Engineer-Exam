@@ -1,7 +1,13 @@
 <template>
     <div>
-        <video ref="videoElement" class="video-js"></video>
-        <button @click="switchVideoSource">Switch Source</button>
+        <div class="embed-responsive embed-responsive-16by9 mt-5">
+            <video ref="videoElement" class="video-js embed-responsive-item"></video>
+        </div>
+        <div class="row">
+            <div v-for="(source, key) in sources" :key="key" class="col-2">
+                <a href="javascript:void(0)" @click="change(key)">{{ filename(source) }}</a>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -22,11 +28,8 @@ export default {
         this.fetchVideos()
     },
     methods: {
-        switchVideoSource() {
-            this.currentSourceIndex = (this.currentSourceIndex + 1) % this.sources.length
-
-            this.player.src(this.sources[this.currentSourceIndex])
-
+        change(key) {
+            this.player.src(this.sources[key])
             this.player.load()
             this.player.play()
         },
@@ -44,6 +47,12 @@ export default {
                 console.error('Error fetching data:', error)
             })
         },
+        filename (source) {
+            const parts = source.split("/")
+            const filename = parts[parts.length - 1]
+
+            return filename
+        }
     },
     beforeUnmount() {
         if (this.player) {
@@ -56,6 +65,5 @@ export default {
 <style scoped="">
 .video-js {
     width: 100%;
-    height: 600px;
 }
 </style>
