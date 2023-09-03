@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('form/{product?}', [ProductController::class, 'form'])->name('form');
     });
 
+    Route::get('videos', [VideoController::class, 'videos'])->name('videos');
     Route::get('dashboard', function () {
         return view('dashboard');
     });

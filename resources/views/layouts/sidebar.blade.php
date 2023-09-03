@@ -34,14 +34,21 @@
                 <li class="nav-header text-uppercase">Products</li>
                 <li class="nav-item">
                     <a href="{{ route('product.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-file"></i>
+                        <i class="nav-icon fas fa-list"></i>
                         <p>List</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('product.form') }}" class="nav-link">
-                        <i class="nav-icon fas fa-file"></i>
+                        <i class="nav-icon fas fa-product-hunt"></i>
                         <p>Create</p>
+                    </a>
+                </li>
+                <li class="nav-header"></li>
+                <li class="nav-item">
+                    <a href="{{ route('videos') }}" class="nav-link">
+                        <i class="nav-icon fas fa-video"></i>
+                        <p>Videos</p>
                     </a>
                 </li>
                 <li class="nav-header"></li>
