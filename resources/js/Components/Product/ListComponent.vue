@@ -78,14 +78,13 @@
         },
         methods: {
             async fetchProducts (page) {
-                await axios.get(route('api.product.index'), {
+                await axios.get(route('api.products.index'), {
                     params: {
                         keyword: this.keyword,
                         category: this.category,
                         page: page
                     }
                 }).then(response => {
-                    console.log(response)
                     this.products = []
                     this.products = response.data.data
                     this.page.current = response.data.meta.current_page
@@ -125,8 +124,7 @@
                     confirmButtonText: 'Yes'
                 }).then(result => {
                     if (result.isConfirmed) {
-                        axios.delete(route('api.product.delete', product)).then(response => {
-                            console.log(response)
+                        axios.delete(route('api.products.delete', product)).then(response => {
                             this.fetchProducts(this.page.current)
                         }).catch(error => {
                             console.error('Error fetching data:', error);

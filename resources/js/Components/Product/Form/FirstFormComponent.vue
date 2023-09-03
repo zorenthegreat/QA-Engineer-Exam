@@ -1,22 +1,23 @@
 <template>
     <div>
-        <div class="row">
-            <div class="col-6">Name</div>
-            <div class="col-6"><input v-model="form.name" class="form-control" type="text" /></div>
+        <div class="row py-1">
+            <div class="col-3">Name</div>
+            <div class="col"><input v-model="form.name" class="form-control" type="text" /></div>
         </div>
-        <div class="row">
-            <div class="col-6">Category</div>
-            <div class="col-6">
-                <select class="form-control" name="category">
-                    <option v-for="(category, key) in categoryEnum" :key="key">
+        <div class="row py-1">
+            <div class="col-3">Category</div>
+            <div class="col">
+                <select class="form-control" v-model="form.category">
+                    <option value>&mdash;</option>
+                    <option v-for="(category, key) in categoryEnum" :key="key" :value="key">
                         {{ category }}
                     </option>
                 </select>
             </div>
         </div>
-        <div class="row">
-            <div class="col-6">Description</div>
-            <div class="col-6">
+        <div class="row py-1">
+            <div class="col-3">Description</div>
+            <div class="col">
                 <ckeditor :editor="editor" v-model="form.description"></ckeditor>
             </div>
         </div>
@@ -30,11 +31,7 @@
         props: ['form', 'categoryEnum'],
         data () {
             return {
-                editor: ClassicEditor,
-                description: '<h1>Test</h1>',
-                editorConfig: {
-                    // The configuration of the editor.
-                }
+                editor: ClassicEditor
             }
         },
         created () {

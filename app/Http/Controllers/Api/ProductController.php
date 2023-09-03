@@ -34,6 +34,22 @@ class ProductController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        dd('store');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        dd('update');
+    }
+
+    /**
      * Deletes a product
      * 
      * @param \App\Models\Product $product

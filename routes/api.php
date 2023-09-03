@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'products', 'as' => 'product.'], function () {
-    Route::get('/', [ProductController::class, 'index'])->name('index');
-    Route::delete('{product}', [ProductController::class, 'delete'])->name('delete');
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::apiResource('products', ProductController::class);
 });
