@@ -20,7 +20,7 @@
 
 <script>
     export default {
-        props: ['form', 'errors'],
+        props: ['form', 'errors', 'validate'],
         data () {
             return {
             }
@@ -38,6 +38,7 @@
                 }))]
 
                 this.$refs.images.value = ''
+                this.validate()
             },
             remove(image, key) {
                 if (image.hasOwnProperty('id')) {
@@ -45,6 +46,7 @@
                 }
 
                 this.form.images.splice(key, 1);
+                this.validate()
             },
         }
     }

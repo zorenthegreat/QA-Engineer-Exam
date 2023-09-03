@@ -6,8 +6,8 @@
                     Product Create
                 </div>
                 <div class="card-body">
-                    <first-component :form="form" :errors="errors" v-if="step == 1" :category-enum="categoryEnum" />
-                    <second-component :form="form" :errors="errors" v-if="step == 2" />
+                    <first-component :form="form" :errors="errors" :validate="validate" :category-enum="categoryEnum" v-if="step == 1" />
+                    <second-component :form="form" :errors="errors" :validate="validate" v-if="step == 2" />
                     <third-component :form="form" :errors="errors" v-if="step == 3" />
                 </div>
                 <div class="card-footer">
@@ -46,12 +46,29 @@
                     images: [],
                     deletedImages: []
                 },
-                errors: {}
+                errors: {},
+                isValid: {
+                    name: false,
+                    category: false,
+                    description: false,
+                    images: false
+                }
             }
         },
         computed: {
             isPageOne () {
                 return this.step == 1
+            },
+            isFormValid () {
+                let stepTrue = false
+
+                if (this.step == 1) {
+                    stepTrue = this.isValid.name && this.isValid.category && this.isValid.description
+                } else if (this.step == 2) {
+                    stepTrue = this.isValid.images
+                }
+
+                return stepTrue
             }
         },
         created () {
@@ -99,10 +116,52 @@
                 }
             },
             next () {
-                this.step++
+                this.validate()
+
+                if (this.isFormValid) {
+                    this.step++
+                }
             },
             back () {
                 this.step--
+            },
+            validate () {
+                if (this.step == 1) {
+                    this.isValid.name = true
+                    this.isValid.category = true
+                    this.isValid.description = true
+                    this.errors.name = []
+                    this.errors.category = []
+                    this.errors.description = []
+
+                    if (!this.form.name.trim()) {
+                        this.isValid.name = false
+                        this.errors.name = ['Name is required.']
+                    }
+
+                    if (!this.form.description.trim()) {
+                        this.isValid.description = false
+                        this.errors.description = ['Description is required.']
+                    }
+
+                    if (this.form.name.length > 254) {
+                        this.isValid.name = false
+                        this.errors.name = ['Max of 254 characteres only.']
+                    }
+
+                    if (this.form.category == 0) {
+                        this.isValid.category = false
+                        this.errors.category = ['Category is required.']
+                    }
+                } else if (this.step == 2) {
+                    this.isValid.images = true
+                    this.errors.images = []
+
+                    if (this.form.images.length == 0) {
+                        this.isValid.images = false
+                        this.errors.images = ['Images are required.']
+                    }
+                }
             },
             submit () {
                 this.form.date_time = this.form.date_time ? new Date(this.form.date_time).toISOString() : ''
