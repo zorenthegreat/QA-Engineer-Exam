@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Product\StoreRequest;
+use App\Http\Requests\Api\Product\UpdateRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ProductController extends Controller
 {
@@ -28,9 +33,79 @@ class ProductController extends Controller
             });
         });
 
-        $products = $query->paginate(5); // pagination
+        $products = $query->orderBy('created_at', 'DESC')->paginate(5); // pagination
 
         return ProductResource::collection($products);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * 
+     * @param \App\Http\Requests\Api\ProductRequest $request
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(StoreRequest $request)
+    {
+        DB::beginTransaction();
+
+        try {
+            $product = Product::create($request->validated());
+
+            $this->storeMedia($product, $request->images);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+
+            return response()->json([
+                'errors' => $e->getMessage()
+            ]);
+        }
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     * 
+     * @param \App\Http\Requests\Api\UpdateRequest $request
+     * @param \App\Models\Product $product
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(UpdateRequest $request, Product $product)
+    {
+        DB::beginTransaction();
+
+        try {
+            $product->update($request->validated());
+
+            $this->storeMedia($product, $request->images);
+
+            if ($request->deletedImages) {
+                foreach ($request->deletedImages as $id) {
+                    $media = Media::find($id);
+                    $media->delete();
+                }
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+
+            return response()->json([
+                'errors' => $e->getMessage()
+            ]);
+        }
+
+        return response()->json([
+            'success' => true
+        ]);
     }
 
     /**
@@ -39,7 +114,7 @@ class ProductController extends Controller
      * @param \App\Models\Product $product
      * @return \Illuminate\Http\JsonResponse
      */
-    public function delete(Product $product)
+    public function destroy(Product $product)
     {
         try {
             $product->delete();
@@ -54,5 +129,20 @@ class ProductController extends Controller
         return response()->json([
             'success' => true
         ]);
+    }
+
+    /**
+     * Saves the images to the public storage
+     * 
+     * @param \App\Models\Product $product
+     * @param array $images
+     */
+    protected function storeMedia($product, $images)
+    {
+        if ($images) {
+            foreach ($images as $image) {
+                $product->addMedia($image)->toMediaCollection();
+            }
+        }
     }
 }

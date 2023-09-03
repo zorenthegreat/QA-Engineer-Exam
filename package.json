@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "vite",
+        "dev": "vite --force",
         "build": "vite build"
     },
     "devDependencies": {
@@ -11,6 +11,10 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^39.0.1",
+        "@ckeditor/ckeditor5-vue": "^5.1.0",
+        "@vitejs/plugin-vue": "^4.3.4",
+        "@vuepic/vue-datepicker": "^6.0.3",
         "vue-sweetalert2": "^5.0.5"
     }
 }
