@@ -9,6 +9,7 @@ use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
@@ -41,9 +42,18 @@ class ProductController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        DB::beginTransaction();
+
         try {
             $product = Product::create($request->validated());
+
+            foreach ($request->images as $image) {
+                $product->addMedia($image)->toMediaCollection();
+            }
+
+            DB::commit();
         } catch (\Exception $e) {
+            DB::rollBack();
             Log::error($e);
 
             return response()->json([

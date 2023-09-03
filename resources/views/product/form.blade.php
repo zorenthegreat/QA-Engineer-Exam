@@ -10,7 +10,7 @@
 <section class="content pt-3">
     <div class="container-fluid">
         <div class="row">
-            <div id="app" class="col-8 mx-auto">
+            <div id="app" class="col col-md-8 mx-auto">
                 <product-form-component :product="{{ $product }}" :category-enum="{{ $categories }}" />
             </div>
         </div>

@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div class="row py-1">
-            <div class="col-3">Name</div>
+        <div class="row flex-column flex-md-row py-1">
+            <div class="col col-md-3">Name</div>
             <div class="col"><input v-model="form.name" class="form-control" type="text" /></div>
         </div>
-        <div class="row py-1">
-            <div class="col-3">Category</div>
+        <div class="row flex-column flex-md-row py-1">
+            <div class="col col-md-3">Category</div>
             <div class="col">
                 <select class="form-control" v-model="form.category">
                     <option value="0">Select a Category</option>
@@ -15,8 +15,8 @@
                 </select>
             </div>
         </div>
-        <div class="row py-1">
-            <div class="col-3">Description</div>
+        <div class="row flex-column flex-md-row py-1">
+            <div class="col col-md-3">Description</div>
             <div class="col">
                 <ckeditor :editor="editor" v-model="form.description"></ckeditor>
             </div>

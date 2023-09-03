@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-11 mx-auto">
+        <div class="col col-md-11 mx-auto">
             <div class="card p-2">
                 <div class="card-header">
                     Product Create
@@ -38,7 +38,7 @@
                     description: '',
                     category: 0,
                     date_time: '',
-                    images: ''
+                    images: []
                 }
             }
         },
@@ -62,14 +62,21 @@
                 this.step--
             },
             submit () {
-                this.form.date_time = new Date(this.form.date_time).toISOString()
+                this.form.date_time = this.form.date_time ? new Date(this.form.date_time).toISOString() : ''
 
                 const message = this.product ? 'Updated' : 'Saved'
                 const apiRoute = this.product ? route('api.products.update', this.product) : route('api.products.store')
                 const data = new FormData()
 
                 for (const key in this.form) {
-                    data.append(key, this.form[key])
+                    if (key == 'images') {
+                        this.form[key].forEach(image => {
+                            console.log(image)
+                            data.append('images[]', image.file, image.name)
+                        })
+                    } else {
+                        data.append(key, this.form[key])
+                    }
                 }
 
                 if (this.product) {

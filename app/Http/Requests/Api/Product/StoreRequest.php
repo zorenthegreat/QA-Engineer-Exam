@@ -27,7 +27,9 @@ class StoreRequest extends FormRequest
             'name' => ['required', 'string', 'max:254'],
             'category' => ['required', Rule::in(array_keys(ProductCategory::getOptions()))],
             'description' => ['required', 'string', 'max:1000'],
-            'date_time' => ['required', 'string', 'date']
+            'date_time' => ['required', 'string', 'date'],
+            'images' => ['required', 'array'],
+            'images.*' => ['image', 'mimes:jpeg,png,jpg,gif', 'max:2048']
         ];
     }
 }
