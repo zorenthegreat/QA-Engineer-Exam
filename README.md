@@ -32,18 +32,42 @@
         $   php artisan key:generate
     ```
 
-5.  Execute Database Migration and Seeders.
+5.  Create your DB and update your DB configs in .env.
+
+    ```bash
+        $   DB_CONNECTION=mysql
+        $   DB_HOST=127.0.0.1
+        $   DB_PORT=3306
+        $   DB_DATABASE=laravel
+        $   DB_USERNAME=root
+        $   DB_PASSWORD=
+    ```
+
+6.  Execute Database Migration and Seeders.
 
     ```bash
         $   php artisan migrate --seed
     ```
 
-6.  Create a symlink for Storage in Public Directory.
+7.  Create a symlink for Storage in Public Directory.
 
     ```bash
         $   php artisan storage:link
     ```
-7.  Run local server.
+
+8.  Generate Ziggy routes.
+
+    ```bash
+        $   php artisan ziggy:generate
+    ```
+
+9.  Run local server.
+
+    ```bash
+        $   php artisan serve
+    ```
+
+10.  Run local server.
 
     ```bash
         $   php artisan serve
