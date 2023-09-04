@@ -20,7 +20,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('product.form') }}" class="nav-link {{ Route::is('product.form') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-product-hunt"></i>
+                        <i class="nav-icon fas fa-edit"></i>
                         <p>Create</p>
                     </a>
                 </li>
