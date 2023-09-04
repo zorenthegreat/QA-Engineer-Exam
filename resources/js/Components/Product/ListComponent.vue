@@ -6,7 +6,7 @@
                     <div class="row flex-column flex-md-row">
                         <input v-model="keyword" @keypress.enter="search" class="form-control col-12 col-md-6" type="text" placeholder="Search Product..." />
                         <select v-model="category" class="form-control col-12 col-md-3 mx-md-1 my-1 my-md-0">
-                            <option value>&mdash;</option>
+                            <option value>Select Category</option>
                             <option v-for="(category, key) in categories" :key="key" :value="key">{{ category }}</option>
                         </select>
                         <div class="text-right text-md-left">
