@@ -70,5 +70,5 @@
 10.  Run local server.
 
     ```bash
-        $   php artisan serve
+        $   npm run dev
     ```
