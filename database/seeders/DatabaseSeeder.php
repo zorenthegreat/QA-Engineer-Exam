@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,8 +13,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Admin::factory(10)->create();
-        \App\Models\Product::factory(100)->create();
+        Admin::factory(1)->create();
+
+        $admin = Admin::first();
+
+        $this->command->info("Dummy Admin Created");
+        $this->command->info("Email: $admin->email");
+        $this->command->info("Password: password");
+
+        \App\Models\Product::factory(50)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
