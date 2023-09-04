@@ -16,15 +16,6 @@
 
     export default {
         components: { DatePicker },
-        props: ['form', 'errors'],
-        data () {
-            return {
-            }
-        },
-        created () {
-            console.log('Third Form Created')
-        },
-        methods: {
-        }
+        props: ['form', 'errors']
     }
 </script>

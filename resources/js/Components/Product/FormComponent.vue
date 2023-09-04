@@ -3,7 +3,7 @@
         <div class="col col-md-11 mx-auto">
             <div class="card p-2">
                 <div class="card-header">
-                    Product Create
+                    Product {{ product ? 'Update' : 'Create' }}
                 </div>
                 <div class="card-body">
                     <first-component :form="form" :errors="errors" :validate="validate" :category-enum="categoryEnum" v-if="step == 1" />
@@ -147,6 +147,11 @@
                     if (this.form.name.length > 254) {
                         this.isValid.name = false
                         this.errors.name = ['Max of 254 characteres only.']
+                    }
+
+                    if (this.form.description.length > 1000) {
+                        this.isValid.description = false
+                        this.errors.description = ['Max of 1000 characters only.']
                     }
 
                     if (this.form.category == 0) {

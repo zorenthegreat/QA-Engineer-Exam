@@ -10,7 +10,7 @@
                 <img class="img-preview img-thumbnail col" :src="image.preview">
             </div>
             <div class="col col-md-4 my-auto text-center">
-                <input class="d-none" type="file" multiple ref="images" @change="filesChanged" />
+                <input class="d-none" type="file" multiple accept=".jpg, .jpeg, .png, .gif" ref="images" @change="filesChanged" />
                 <a href="javascript:void(0)" class="btn btn-light border col" @click="$refs.images.click()"><i class="fas fa-plus"></i></a>
                 <p class="col text-danger text-center" v-if="errors.images">{{ errors.images[0] }}</p>
             </div>
@@ -21,13 +21,6 @@
 <script>
     export default {
         props: ['form', 'errors', 'validate'],
-        data () {
-            return {
-            }
-        },
-        created () {
-            console.log('Second Form Created')
-        },
         methods: {
             filesChanged () {
                 const files = Array.from(this.$refs.images.files)
