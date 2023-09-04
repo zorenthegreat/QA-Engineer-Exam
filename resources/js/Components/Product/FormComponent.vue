@@ -3,7 +3,14 @@
         <div class="col col-md-11 mx-auto">
             <div class="card p-2">
                 <div class="card-header">
-                    Product {{ product ? 'Update' : 'Create' }}
+                    <div class="row">
+                        <div class="col">
+                            Product {{ product ? 'Update' : 'Create' }}
+                        </div>
+                        <div class="col text-right">
+                            Step {{ step }} / 3
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <first-component :form="form" :errors="errors" :validate="validate" :category-enum="categoryEnum" v-if="step == 1" />
