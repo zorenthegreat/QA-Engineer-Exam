@@ -23,9 +23,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
 
     Route::get('videos', [VideoController::class, 'videos'])->name('videos');
-    Route::get('dashboard', function () {
-        return view('dashboard');
-    });
 });
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
