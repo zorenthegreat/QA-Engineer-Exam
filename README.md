@@ -67,8 +67,9 @@
         $   php artisan serve
     ```
 
-10.  Run local server.
+10.  Front Build.
 
     ```bash
         $   npm run dev
+        $   npm run build
     ```
