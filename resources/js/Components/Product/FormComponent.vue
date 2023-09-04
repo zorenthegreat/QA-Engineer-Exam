@@ -3,7 +3,7 @@
         <div class="col col-md-11 mx-auto">
             <div class="card p-2">
                 <div class="card-header">
-                    Product Create
+                    Product {{ product ? 'Update' : 'Create' }}
                 </div>
                 <div class="card-body">
                     <first-component :form="form" :errors="errors" :validate="validate" :category-enum="categoryEnum" v-if="step == 1" />
