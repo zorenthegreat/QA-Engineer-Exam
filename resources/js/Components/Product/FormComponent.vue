@@ -149,6 +149,11 @@
                         this.errors.name = ['Max of 254 characteres only.']
                     }
 
+                    if (this.form.description.length > 1000) {
+                        this.isValid.description = false
+                        this.errors.description = ['Max of 1000 characters only.']
+                    }
+
                     if (this.form.category == 0) {
                         this.isValid.category = false
                         this.errors.category = ['Category is required.']
