@@ -24,7 +24,7 @@ class ProductFactory extends Factory
                 ProductCategory::cases()
             )),
             'description' => fake()->realText(),
-            'date_time' => '2023-08-31 10:41:29'
+            'date_time' => fake()->dateTimeThisYear()
         ];
     }
 }
