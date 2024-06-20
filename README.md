@@ -11,7 +11,7 @@
 1. Clone this repository.
 
     ```bash
-    git clone https://github.com/ericnicdao069/backend-dev-exam.git
+    git clone https://github.com/zorenthegreat/QA-Engineer-Exam
     ```
 
 2. Recreate environment variable file.
