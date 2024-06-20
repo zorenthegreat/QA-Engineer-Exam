@@ -65,6 +65,9 @@ jobs:
         DB_USERNAME: laravel
         DB_PASSWORD: secret
 
+    - name: Install ChromeDriver
+      run: php artisan dusk:chrome-driver --detect
+      
     - name: Run Dusk Tests
       run: php artisan dusk --env=testing
 
