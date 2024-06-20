@@ -29,6 +29,6 @@ jobs:
         run: |
           composer install --no-interaction
 
-      - name: Run Dusk Tests
+      - name: Run  Tests
         run: |
-          php artisan dusk
+          php artisan test
