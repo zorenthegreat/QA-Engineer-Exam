@@ -38,4 +38,7 @@ jobs:
 
       - name: Run Dusk tests
         run: php artisan dusk
+        
+      - name: Run Playwright
+        run: npx playwright test
 
