@@ -6,14 +6,7 @@ jobs:
   tests:
     name: Run tests
     runs-on: ubuntu-latest
-    services:
-        mysql:
-            image: mysql:'8.2'
-            env:
-               DB_DATABASE: laravel
-               DB_USERNAME: root
-            ports:
-               - 3306:3306 
+
     steps:
       - uses: actions/checkout@v3
  
