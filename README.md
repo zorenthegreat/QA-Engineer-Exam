@@ -8,31 +8,31 @@
 
 ## Configuration
 
-1.  Clone this repository.
+1. Clone this repository.
 
     ```bash
     git clone https://github.com/ericnicdao069/backend-dev-exam.git
     ```
 
-2.  Recreate environment variable file.
+2. Recreate environment variable file.
 
     ```bash
     cp .env.example .env
     ```
 
-3.  Install composer and npm.
+3. Install composer and npm.
 
     ```bash
     composer install && npm install
     ```
 
-4.  Generate Application Key.
+4. Generate Application Key.
 
     ```bash
     php artisan key:generate
     ```
 
-5.  Create your DB and update your DB configs in .env.
+5. Create your DB and update your DB configs in `.env`.
 
     ```bash
     DB_CONNECTION=mysql
@@ -43,31 +43,31 @@
     DB_PASSWORD=
     ```
 
-6.  Execute Database Migration and Seeders.
+6. Execute Database Migration and Seeders.
 
     ```bash
     php artisan migrate --seed
     ```
 
-7.  Create a symlink for Storage in Public Directory.
+7. Create a symlink for Storage in the Public Directory.
 
     ```bash
     php artisan storage:link
     ```
 
-8.  Generate Ziggy routes.
+8. Generate Ziggy routes.
 
     ```bash
     php artisan ziggy:generate
     ```
 
-9.  Run local server.
+9. Run local server.
 
     ```bash
     php artisan serve
     ```
 
-10.  Front Build.
+10. Front Build.
 
     ```bash
     npm run dev
@@ -91,9 +91,10 @@ To enable automated testing in your Laravel project, follow these steps to insta
     ```bash
     npx playwright install
     ```
-3. Running the test
 
-  ```bash
+3. Run Playwright tests.
+
+    ```bash
     npx playwright test
     ```
 
@@ -111,10 +112,10 @@ To enable automated testing in your Laravel project, follow these steps to insta
     php artisan dusk:install
     ```
 
-2. Run Dusk Test.
+3. Run Dusk tests.
 
     ```bash
-    php artisan dusk 
+    php artisan dusk
     ```
 
 By following these steps, you will have installed Playwright for end-to-end testing and Laravel Dusk for browser testing in your Laravel application. For detailed usage and configuration, refer to the [Playwright](https://playwright.dev/docs/intro) and [Laravel Dusk](https://laravel.com/docs/10.x/dusk) documentation.
